@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: src
+    schema: src  
+    tables:
+      - name: raw_jobs
+      - name: job_skills
+      - name: job_summaries

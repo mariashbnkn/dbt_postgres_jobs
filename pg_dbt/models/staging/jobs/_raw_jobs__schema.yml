@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_jobs__raw_jobs
+    columns:
+      - name: job_link
+        tests:
+          - unique
+          - not_null
+      - name: company
+        tests:
+          - not_null
+      - name: job_title
+        tests:
+          - unique_job_title_per_company:
+              column_name_2: company
+      - name: job_level
+        tests:
+          - valid_job_level

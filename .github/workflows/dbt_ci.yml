@@ -1,0 +1,30 @@
+name: dbt CI
+on: [pull_request]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
+
+      - name: Install dbt
+        run: pip install dbt-postgres
+
+      - name: Run tests
+        env:
+          DBT_PROFILES_DIR: ./.dbt_git
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        run: |
+          cd pg_dbt
+          dbt deps
+          dbt run --target dev
+          dbt test --target dev

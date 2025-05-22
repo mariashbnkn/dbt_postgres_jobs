@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_jobs__job_skills
+    columns:
+      - name: job_link
+        tests:
+          - unique
+          - not_null
