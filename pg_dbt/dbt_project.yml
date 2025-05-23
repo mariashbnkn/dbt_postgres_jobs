@@ -46,3 +46,7 @@ models:
     tracking:
       +materialized: table
       +tags: ["track"]
+
+    hub:
+      +materialized: table
+      +tags: ["hub"]

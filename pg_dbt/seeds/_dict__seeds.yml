@@ -1,0 +1,7 @@
+seeds:
+  - name: us_cities
+    config:
+      column_types:
+        City: varchar(50)
+        State: varchar(50)
+        Region: varchar(50)

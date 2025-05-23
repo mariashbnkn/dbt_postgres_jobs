@@ -161,3 +161,4 @@ cython_debug/
 
 ~/.dbt/profiles.yml
 /py_scripts/data/
+/py_scripts/.test.py

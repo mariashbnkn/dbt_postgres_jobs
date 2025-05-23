@@ -17,3 +17,12 @@ models:
       - name: job_level
         tests:
           - valid_job_level
+    freshness:
+          warn_after:
+            count: 6
+            period: hour
+          error_after:
+            count: 1
+            period: day
+          filter: first_seen::date > CURRENT_DATE - 1
+          loaded_at_field: first_seen::timestamp

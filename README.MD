@@ -25,12 +25,15 @@ dbt snapshot # Запускает модели типа snapshot для отсл
 dbt compile # Компилирует Jinja-шаблоны в чистый SQL, но не выполняет его в БД. Результат сохраняется в папке target/compiled. Полезен для отладки SQL-кода перед запуском.
 dbt run # Запускает преобразование данных
 dbt build # Выполняет полный цикл работы: последовательно запускает run, test, seed (если есть) и snapshot (если есть) для всех моделей или указанных. 
+dbt build --select mrt_jobs__dim_jobs --full-refresh --log-level debug # Для определенной модели, с учетом обновления с выводом логов
 dbt docs generate; # Создает статическую документацию на основе кода и комментариев (_row_jobs__sources.yml).
 dbt docs serve # Запускает локальный веб-сервер для просмотра документации.
 # http://localhost:8080/#!/overview
 dbt run -m name_of_model
 dbt run -m tag:name_tag  # Запускает все модели с тегом name_tag. Теги задаются в dbt_project.yml или в config модели
 dbt test  # Запускает тесты данных (проверки на уникальность, NULL, кастомные SQL-тесты). Тесты определяются в _row_jobs__sources.yml или отдельных SQL-файлах.  
+dbt source freshness # Проверка на получение новых данных источника за указанный период с учетом фильтра
+dbt seed --select some_seed # Загрузка данных из csv файлов (желательно малых объемов)
 ```
 
 Github actions
@@ -44,3 +47,4 @@ Github actions
 curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 ./act -W .github/workflows/dbt_deploy.yml --env-file .env
 ```
+

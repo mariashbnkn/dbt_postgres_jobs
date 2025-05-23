@@ -1,6 +1,6 @@
 --количество вакансий по компаниям
 
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
 SELECT
     company,
