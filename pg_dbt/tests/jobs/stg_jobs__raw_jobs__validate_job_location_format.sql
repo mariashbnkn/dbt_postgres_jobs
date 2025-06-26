@@ -1,4 +1,11 @@
 -- Проверка, что job_location содержит город и штат
+{{
+    config(
+        severity = 'error',
+        error_if = '>50000',
+        warn_if = '>50000'
+    )
+}}
 
 SELECT
     job_link,
