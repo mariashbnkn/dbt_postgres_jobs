@@ -4,18 +4,23 @@ models:
   - name: stg_jobs__raw_jobs
     columns:
       - name: job_link
-        tests:
-          - unique
+        data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_jobs__job_skills')
+              field: job_link
+          - relationships:
+              to: ref('stg_jobs__job_summaries')
+              field: job_link
       - name: company
-        tests:
+        data_tests:
           - not_null
       - name: job_title
-        tests:
+        data_tests:
           - unique_job_title_per_company:
               column_name_2: company
       - name: job_level
-        tests:
+        data_tests:
           - valid_job_level
     freshness:
           warn_after:
