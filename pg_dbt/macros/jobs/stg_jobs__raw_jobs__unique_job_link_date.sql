@@ -1,4 +1,4 @@
-{% test unique_job_title_per_company(model, column_name, column_name_2) %}
+{% test unique_job_link_date(model, column_name, column_name_2) %}
 SELECT
     {{ column_name }},
     {{ column_name_2 }},

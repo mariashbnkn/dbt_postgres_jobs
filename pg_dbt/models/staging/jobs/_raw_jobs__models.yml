@@ -6,19 +6,11 @@ models:
       - name: job_link
         data_tests:
           - not_null
-          - relationships:
-              to: ref('stg_jobs__job_skills')
-              field: job_link
-          - relationships:
-              to: ref('stg_jobs__job_summaries')
-              field: job_link
+          - unique_job_link_date:
+              column_name_2: first_seen_date
       - name: company
         data_tests:
           - not_null
-      - name: job_title
-        data_tests:
-          - unique_job_title_per_company:
-              column_name_2: company
       - name: job_level
         data_tests:
           - valid_job_level

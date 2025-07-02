@@ -19,7 +19,7 @@ conn = engine.connect()
 
 # Создание таблицы для описаний вакансий
 inspector = inspect(engine)
-table_exists = inspector.has_table('row_jobs', schema=DB_SCHEMA)
+table_exists = inspector.has_table('raw_jobs', schema=DB_SCHEMA)
 
 if not table_exists:
     create_table_sql = text(f"""
@@ -57,7 +57,6 @@ with conn.connection.cursor() as cursor:
             """,
             f
         )
-    conn.commit()
 
 index_sql = f"""
 CREATE INDEX IF NOT EXISTS idx_raw_jobs_job_link ON {DB_SCHEMA}.raw_jobs (job_link);
@@ -66,6 +65,5 @@ CREATE INDEX IF NOT EXISTS idx_raw_jobs_company ON {DB_SCHEMA}.raw_jobs (first_s
 ANALYZE VERBOSE {DB_SCHEMA}.raw_jobs; 
 """
 conn.execute(text(index_sql))
-conn.commit()
 
 conn.close()

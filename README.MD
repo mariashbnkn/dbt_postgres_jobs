@@ -7,6 +7,7 @@ dbt debug  # проверка подключения
 
 Загрузка данных
 - Авторизоваться на kaggle для получения токена https://www.kaggle.com/docs/api
+- Добавить .env файл с подключением к БД
 ```bash
 python load_linkedin_jobs.py
 python load_job_summary.py
@@ -47,5 +48,15 @@ Github actions
 ```bash
 curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 ./act -W .github/workflows/dbt_deploy.yml --env-file .env
+```
+
+
+dbt+Airflow/ PostgreSQL models -> Clickhouse
+- Развернуть airflow в контейнере с установкой нужных зависимостей
+- Файл kaggle.json расположить в папке config
+```bash
+mkdir -p ./logs ./plugins
+docker-compose build 
+docker-compose up
 ```
 

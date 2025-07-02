@@ -159,6 +159,10 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-~/.dbt/profiles.yml
-/py_scripts/data/
-/py_scripts/.test.py
+py_scripts/.test.py
+logs
+data
+pg_dbt/target/
+pg_dbt/dbt_packages/
+pg_dbt/logs/
+config/

@@ -1,0 +1,49 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${AIRFLOW_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${AIRFLOW_POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+  airflow:
+    build: .
+    container_name: airflow
+    env_file:
+      - .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_POSTGRES_USER}:${AIRFLOW_POSTGRES_PASSWORD}@postgres/${AIRFLOW_POSTGRES_DB}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+      KAGGLE_CONFIG_DIR: /home/airflow/.kaggle
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    volumes:
+      - .env:/opt/airflow/.env
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./pg_dbt:/opt/airflow/pg_dbt
+      - ./.dbt:/opt/airflow/.dbt
+      - ./config/kaggle.json:/home/airflow/.kaggle/kaggle.json:ro
+    command: >
+      bash -c "chown -R airflow:airflow /opt/airflow/pg_dbt &&
+              airflow db init && 
+              airflow db upgrade &&
+              airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com --password ${AIRFLOW_PASSWORD} &&
+              airflow webserver & airflow scheduler &&
+              cd /opt/airflow/pg_dbt && dbt deps"
+
+
+volumes:
+  postgres-db-volume:

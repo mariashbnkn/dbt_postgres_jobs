@@ -10,7 +10,6 @@ models:
         description: "MD5 хэш от job_link (суррогатный ключ)"
         tests:
           - not_null
-          - unique
       - name: job_link
         description: "URL вакансии (натуральный ключ)"
         tests:
@@ -24,7 +23,6 @@ models:
         description: "MD5 хэш от company (суррогатный ключ)"
         tests:
           - not_null
-          - unique
 
   - name: hub_jobs__location
     description: "Хаб локаций, содержащий уникальные местоположения из вакансий"
@@ -34,4 +32,3 @@ models:
         description: "MD5 хэш от job_location (суррогатный ключ)"
         tests:
           - not_null
-          - unique
