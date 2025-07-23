@@ -1,3 +1,5 @@
+# dbt + github actions
+
 Установка
 ```bash
 pip install --upgrade pip
@@ -51,7 +53,22 @@ curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 ```
 
 
-dbt+Airflow/ PostgreSQL models -> Clickhouse
+# Airflow/ PostgreSQL models -> dbt -> Clickhouse
+В .env файл добавить:
+
+    AIRFLOW_POSTGRES_USER
+    AIRFLOW_POSTGRES_PASSWORD
+    AIRFLOW_POSTGRES_DB
+
+    AIRFLOW_USER
+    AIRFLOW_PASSWORD
+    AIRFLOW_FERNET_KEY
+
+    CLICK_HOST
+    CLICK_USER
+    CLICK_PASSWORD
+    CLICK_DB
+
 - Развернуть airflow в контейнере с установкой нужных зависимостей
 - Файл kaggle.json расположить в папке config
 ```bash
@@ -59,4 +76,3 @@ mkdir -p ./logs ./plugins
 docker-compose build 
 docker-compose up
 ```
-

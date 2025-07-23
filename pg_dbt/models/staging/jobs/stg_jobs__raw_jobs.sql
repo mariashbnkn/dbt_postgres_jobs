@@ -18,4 +18,7 @@ SELECT
     SPLIT_PART(job_location, ', ', 1) AS job_city,
     SPLIT_PART(job_location, ', ', 2) AS job_state,
     DATE(first_seen) AS first_seen_date
-FROM {{ source('src', 'raw_jobs') }}
+FROM {{ source('src', 'raw_jobs') }} 
+  where '{{ var('date_range')['start_date'] }}' <= first_seen 
+		and 
+	first_seen < '{{ var('date_range')['end_date'] }}'

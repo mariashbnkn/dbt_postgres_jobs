@@ -8,3 +8,4 @@ COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
 RUN mkdir -p /opt/airflow/data
 RUN chmod -R 777 /opt/airflow/data
+RUN chmod -R 777 /opt/airflow/logs

@@ -27,7 +27,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "8080:8080"
+      - "8090:8080"
     volumes:
       - .env:/opt/airflow/.env
       - ./dags:/opt/airflow/dags
@@ -37,8 +37,7 @@ services:
       - ./.dbt:/opt/airflow/.dbt
       - ./config/kaggle.json:/home/airflow/.kaggle/kaggle.json:ro
     command: >
-      bash -c "chown -R airflow:airflow /opt/airflow/pg_dbt &&
-              airflow db init && 
+      bash -c "airflow db init && 
               airflow db upgrade &&
               airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com --password ${AIRFLOW_PASSWORD} &&
               airflow webserver & airflow scheduler &&

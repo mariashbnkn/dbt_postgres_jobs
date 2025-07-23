@@ -6,6 +6,7 @@ bleach==6.2.0
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.0
+clickhouse-connect==0.8.18
 colorama==0.4.6
 daff==1.4.2
 dbt-adapters==1.15.1
@@ -25,6 +26,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
 kaggle==1.7.4.5
 leather==0.4.0
+lz4==4.4.4
 MarkupSafe==3.0.2
 mashumaro==3.14
 more-itertools==10.7.0
@@ -60,3 +62,4 @@ tzdata==2025.2
 urllib3==2.4.0
 webencodings==0.5.1
 zipp==3.21.0
+zstandard==0.23.0

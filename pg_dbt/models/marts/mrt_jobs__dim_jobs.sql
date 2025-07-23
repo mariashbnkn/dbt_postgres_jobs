@@ -1,8 +1,8 @@
---Разделение локации на город/штат
+
 {{ 
     config(
-        materialized = "materialized_view",
-        on_configuration_change = "continue",
+        materialized = 'table',
+        transient = false, 
         indexes=[
             {
                 "columns": ["first_seen_date"],
@@ -23,4 +23,7 @@ SELECT
     job_level,
     job_type,
     first_seen_date
-FROM {{ ref('stg_jobs__raw_jobs') }}
+FROM {{ ref('stg_jobs__raw_jobs') }} 
+    where '{{ var('mart_date_range')['start_date'] }}' <= first_seen_date 
+		and 
+	first_seen_date < '{{ var('mart_date_range')['end_date'] }}'

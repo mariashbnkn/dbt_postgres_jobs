@@ -166,3 +166,4 @@ pg_dbt/target/
 pg_dbt/dbt_packages/
 pg_dbt/logs/
 config/
+.dbt/.user.yml
